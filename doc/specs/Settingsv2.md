@@ -6,10 +6,6 @@
 - **Authors:** Clint Rutkas
 - **Spec Status:** Draft
 
-# TODO's
-
-- FZ setting section
-
 # 1. Overview
 
 ## 1.1. Elevator Pitch / Narrative
@@ -165,7 +161,33 @@ This will be a hybrid of the following
 
 | No. | Requirement | Priority |
 | --- | ----------- | -------- |
-| x | x | 0 |
+| 1 | Direct launch editor - button | 0 |
+| 2 | Configure hotkey - keyboard remapper control | 0 |
+| 3 | Hold shift to show zones - toggle | 0 |
+| 4 | Override Windows snap's WinKey + Left/Right Arrow to snap to different Zones | 0 |
+| 5 | Flash Zones - toggle | 2 |
+| 6 | Windows continue to be snapped to zone during resolution changes - toggle (open q) | 0 |
+| 7 | During FancyZone layout changes, Windows continue to be snapped to assigned zones | 0 |
+| 8 | Move newly created windows to their last known zone | 0 |
+| 9 | Selected Zone Color - Color picker (see below) | 0 |
+| 10 | Monitor for layout selection target behavior - drop down (Mouse - Default, Window with focus) (open q) | 0 |
+| 11 | FancyZone exclusion app list - text box with hint text of sample(s) | 0 |
+| 12 | Grouping: Appearance (9) | 0 |
+| 13 | Grouping: Window Snapping behavior (3, 4, ) | 0 |
+| 14 | Grouping: Editor behavior (1, 2, ) | 0 |
+| 15 | Grouping: Advanced Options (7, 8, 10, 11) | 0 |
+
+
+```xml
+<muxc:ColorPicker
+      IsMoreButtonVisible="False"
+      IsColorSliderVisible="True"
+      IsColorChannelTextInputVisible="False"
+      IsHexInputVisible="True"
+      IsAlphaEnabled="True"
+      IsAlphaSliderVisible="True"
+      IsAlphaTextInputVisible="False" />
+```
 
 ### 4.1.8. PowerRename
 
@@ -263,6 +285,10 @@ To start work ASAP, we'll do the following below
 1. in 4.1.8.5 for power rename "show icon", is this a setting we need?
 1. is 4.1.11.4 a must have, it is a regression for what Image Resizer does now.
 1. Does Shortcut guide need a theme setting for itself
+1. 4.1.7.5, flashing zones, is this really a feature we should support?
+1. 4.1.7.6, Windows retain size during resolution change, I Feel this is an always on, no?
+1. 4.1.7.10, needs better language
+1. 4.1.7.10, FancyZone editor v2 will do away with this behavior, do we need to continue to support this?  Why isn't this just the default behavior
 
 [fzv1]: images/specs/settingsv2/fancyZones.png "Fancy Zones current setting"
 [generalv1]: images/specs/settingsv2/generalv1.png "General current settings"
