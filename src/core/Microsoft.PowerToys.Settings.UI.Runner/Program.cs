@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright (c) Microsoft Corporation
+// The Microsoft Corporation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+using System;
 using System.Windows;
 using TwoWayIPCLibLib;
 
@@ -8,9 +10,10 @@ namespace Microsoft.PowerToys.Settings.UI.Runner
 {
     public class Program
     {
-        // Create an instance of the  IPC wrapper 
-        public static ITwoWayIPCManager ipcmanager = new TwoWayIPCManager();
-        [System.STAThreadAttribute()]
+        // Create an instance of the  IPC wrapper.
+        private static ITwoWayIPCManager ipcmanager = new TwoWayIPCManager();
+
+        [STAThreadAttribute()]
         public static void Main(string[] args)
         {
             using (new UI.App())
@@ -32,6 +35,11 @@ namespace Microsoft.PowerToys.Settings.UI.Runner
                     app.Shutdown();
                 }
             }
+        }
+
+        public static ITwoWayIPCManager GetTwoWayIPCManager()
+        {
+            return ipcmanager;
         }
     }
 }
