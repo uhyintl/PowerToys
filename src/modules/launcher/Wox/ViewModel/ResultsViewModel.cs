@@ -19,6 +19,8 @@ namespace Wox.ViewModel
 
         private ResultViewModel _selectedItem;
 
+        private int _selectedIndex;
+
         private readonly object _addResultsLock = new object();
         private readonly object _collectionLock = new object();
         private readonly Settings _settings;
@@ -47,7 +49,22 @@ namespace Wox.ViewModel
 
         public int MaxHeight => MaxResults * 50;
 
-        public int SelectedIndex { get; set; }
+        public int SelectedIndex
+        {
+            get
+            {
+                return _selectedIndex;
+            }
+
+            set
+            {
+                if (value != _selectedIndex)
+                {
+                    _selectedIndex = value;
+                    SelectedItem = Results[_selectedIndex];
+                }
+            }
+        }
 
         public ResultViewModel SelectedItem
         {
@@ -114,13 +131,11 @@ namespace Wox.ViewModel
         public void SelectNextResult()
         {
             SelectedIndex = NewIndex(SelectedIndex + 1);
-            SelectedItem = Results[SelectedIndex];
         }
 
         public void SelectPrevResult()
         {
             SelectedIndex = NewIndex(SelectedIndex - 1);
-            SelectedItem = Results[SelectedIndex];
         }
 
         public void SelectNextPage()
