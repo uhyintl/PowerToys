@@ -17,6 +17,8 @@ namespace Wox.ViewModel
 
         public ResultCollection Results { get; }
 
+        private ResultViewModel _selectedItem;
+
         private readonly object _addResultsLock = new object();
         private readonly object _collectionLock = new object();
         private readonly Settings _settings;
@@ -47,7 +49,27 @@ namespace Wox.ViewModel
 
         public int SelectedIndex { get; set; }
 
-        public ResultViewModel SelectedItem { get; set; }
+        public ResultViewModel SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+
+            set
+            {
+                if (value != _selectedItem)
+                {
+                    _selectedItem = value;
+
+                    if (_selectedItem.Result.SelectionAction != null)
+                    {
+                        _selectedItem.Result.SelectionAction(new ActionContext());
+                    }
+                }
+            }
+        }
+
         public Thickness Margin { get; set; }
         public Visibility Visbility { get; set; } = Visibility.Collapsed;
 

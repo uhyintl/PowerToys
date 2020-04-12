@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Interop;
 using Wox.Plugin.WindowWalker.Components;
 
 namespace Wox.Plugin.WindowWalker
@@ -29,7 +30,12 @@ namespace Wox.Plugin.WindowWalker
                 {
                     x.Result.SwitchToWindow();
                     return true;
-                }
+                },
+                SelectionAction = c =>
+                {
+                    LivePreview.ActivateLivePreview(x.Result.Hwnd, InteropAndHelpers.GetActiveWindow());
+                    return null;
+                },
             }
             ).ToList();
         }

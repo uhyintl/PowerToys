@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
-
+using System.Windows.Interop;
 using Wox.Core.Plugin;
 using Wox.Core.Resource;
 using Wox.Helper;
