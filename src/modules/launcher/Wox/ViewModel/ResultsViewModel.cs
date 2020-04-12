@@ -114,11 +114,13 @@ namespace Wox.ViewModel
         public void SelectNextResult()
         {
             SelectedIndex = NewIndex(SelectedIndex + 1);
+            SelectedItem = Results[SelectedIndex];
         }
 
         public void SelectPrevResult()
         {
             SelectedIndex = NewIndex(SelectedIndex - 1);
+            SelectedItem = Results[SelectedIndex];
         }
 
         public void SelectNextPage()

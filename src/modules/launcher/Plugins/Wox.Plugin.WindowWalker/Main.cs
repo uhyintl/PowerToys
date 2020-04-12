@@ -33,7 +33,7 @@ namespace Wox.Plugin.WindowWalker
                 },
                 SelectionAction = c =>
                 {
-                    LivePreview.ActivateLivePreview(x.Result.Hwnd, InteropAndHelpers.GetActiveWindow());
+                    LivePreview.ActivateLivePreview(x.Result.Hwnd, InteropAndHelpers.GetForegroundWindow());
                     return null;
                 },
             }

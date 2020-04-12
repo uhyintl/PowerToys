@@ -840,6 +840,6 @@ namespace Wox.Plugin.WindowWalker.Components
         public static extern bool GetWindowPlacement(IntPtr hWnd, out WINDOWPLACEMENT lpwndpl);
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr GetActiveWindow();
+        public static extern IntPtr GetForegroundWindow();
     }
 }
