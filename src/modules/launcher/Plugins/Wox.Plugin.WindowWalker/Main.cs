@@ -33,7 +33,12 @@ namespace Wox.Plugin.WindowWalker
                 },
                 SelectionAction = c =>
                 {
-                    LivePreview.ActivateLivePreview(x.Result.Hwnd, InteropAndHelpers.GetForegroundWindow());
+                    var excludeWindowHandle =
+                        OpenWindows.Instance.Windows
+                            .Where(window => window.Title == "PopupHost" 
+                                && window.ProcessName == "PowerLauncher.exe").First().Hwnd;
+
+                    LivePreview.ActivateLivePreview(x.Result.Hwnd, excludeWindowHandle);
                     return null;
                 },
             }
