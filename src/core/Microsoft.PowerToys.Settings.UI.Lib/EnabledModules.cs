@@ -18,10 +18,8 @@ namespace Microsoft.PowerToys.Settings.UI.Lib
             this.ShortcutGuide = false;
         }
 
-        [JsonPropertyName("FancyZones")]
         public bool FancyZones { get; set; }
 
-        [JsonPropertyName("ImageResizer")]
         public bool ImageResizer { get; set; }
 
         [JsonPropertyName("File Explorer Preview")]
