@@ -122,6 +122,7 @@
     <ClInclude Include="dpi_aware.h" />
     <ClInclude Include="com_object_factory.h" />
     <ClInclude Include="keyboard_layout.h" />
+    <ClInclude Include="keyboard_layout_impl.h" />
     <ClInclude Include="notifications.h" />
     <ClInclude Include="timeutil.h" />
     <ClInclude Include="VersionHelper.h" />

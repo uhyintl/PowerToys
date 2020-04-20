@@ -1,8 +1,40 @@
 #include "pch.h"
-#include "LayoutMap.h"
+#include "keyboard_layout_impl.h"
+
+#pragma comment(lib, "user32.lib")
+
+LayoutMap::LayoutMap() :
+    impl(new LayoutMap::LayoutMapImpl())
+{
+}
+
+LayoutMap::~LayoutMap()
+{
+    delete impl;
+}
+
+void LayoutMap::UpdateLayout()
+{
+    impl->UpdateLayout();
+}
+
+std::wstring LayoutMap::GetKeyName(DWORD key)
+{
+    return impl->GetKeyName(key);
+}
+
+std::vector<DWORD> LayoutMap::GetKeyCodeList(const bool isShortcut)
+{
+    return impl->GetKeyCodeList(isShortcut);
+}
+
+std::vector<std::wstring> LayoutMap::GetKeyNameList(const bool isShortcut)
+{
+    return impl->GetKeyNameList(isShortcut);
+}
 
 // Function to return the unicode string name of the key
-std::wstring LayoutMap::GetKeyName(DWORD key)
+std::wstring LayoutMap::LayoutMapImpl::GetKeyName(DWORD key)
 {
     std::wstring result = L"Undefined";
     std::lock_guard<std::mutex> lock(keyboardLayoutMap_mutex);
@@ -17,7 +49,7 @@ std::wstring LayoutMap::GetKeyName(DWORD key)
 }
 
 // Update Keyboard layout according to input locale identifier
-void LayoutMap::UpdateLayout()
+void LayoutMap::LayoutMapImpl::UpdateLayout()
 {
     // Get keyboard layout for current thread
     HKL layout = GetKeyboardLayout(0);
@@ -175,7 +207,7 @@ void LayoutMap::UpdateLayout()
 }
 
 // Function to return the list of key codes in the order for the drop down. It creates it if it doesn't exist
-std::vector<DWORD> LayoutMap::GetKeyCodeList(const bool isShortcut)
+std::vector<DWORD> LayoutMap::LayoutMapImpl::GetKeyCodeList(const bool isShortcut)
 {
     std::lock_guard<std::mutex> lock(keyboardLayoutMap_mutex);
     UpdateLayout();
@@ -247,28 +279,24 @@ std::vector<DWORD> LayoutMap::GetKeyCodeList(const bool isShortcut)
     return keyCodes;
 }
 
-Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> LayoutMap::GetKeyNameList(const bool isShortcut)
+std::vector<std::wstring> LayoutMap::LayoutMapImpl::GetKeyNameList(const bool isShortcut)
 {
-    std::unique_lock<std::mutex> lock(keyboardLayoutMap_mutex);
-    UpdateLayout();
-    lock.unlock();
-    Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> keyNames = single_threaded_vector<Windows::Foundation::IInspectable>();
+    std::vector<std::wstring> keyNames;
     std::vector<DWORD> keyCodes = GetKeyCodeList(isShortcut);
-    lock.lock();
     // If it is a key list for the shortcut control then we add a "None" key at the start
     if (isShortcut)
     {
-        keyNames.Append(winrt::box_value(L"None"));
+        keyNames.push_back(L"None");
         for (int i = 1; i < keyCodes.size(); i++)
         {
-            keyNames.Append(winrt::box_value(keyboardLayoutMap[keyCodes[i]].c_str()));
+            keyNames.push_back(GetKeyName(keyCodes[i]));
         }
     }
     else
     {
         for (int i = 0; i < keyCodes.size(); i++)
         {
-            keyNames.Append(winrt::box_value(keyboardLayoutMap[keyCodes[i]].c_str()));
+            keyNames.push_back(GetKeyName(keyCodes[i]));
         }
     }
 
